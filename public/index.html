@@ -1,0 +1,84 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button id="myButton">Login pop up</button>
+    <button id="logoutbutton">logout</button>
+
+    <script type="module">
+      document.getElementById("myButton").addEventListener("click", test);  
+      document.getElementById("logoutbutton").addEventListener("click", logout);
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+              apiKey: "AIzaSyAseiUgEpzEvNxYlmK5q-zCdBVFHlxOW4g",
+              authDomain: "practica1asan.firebaseapp.com",
+              projectId: "practica1asan",
+              storageBucket: "practica1asan.appspot.com",
+              messagingSenderId: "394538950852",
+              appId: "1:394538950852:web:a198ca080522eafe822991"
+            };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        
+        var provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('https://www.googleapis.com/auth/cloud-platform	');
+        function test(){
+          firebase.auth()
+          .signInWithPopup(provider)
+          .then((result) => {
+            /** @type {firebase.auth.OAuthCredential} */
+            var credential = result.credential;
+
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            var token = credential.accessToken;
+            console.log(token)
+            // The signed-in user info.
+            var user = result.user;
+            // ...
+            console.log(credential.accessToken)
+
+          }).catch((error) => {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+          });
+        }
+
+        //function that logs out the user
+        function logout(){
+          firebase.auth().signOut().then(function() {
+            console.log("LOGGED OUT")
+          }).catch(function(error) {
+            console.log(error);
+          });
+        }
+
+      
+        
+        
+ 
+
+
+
+
+
+    </script>
+</body>
+</html>

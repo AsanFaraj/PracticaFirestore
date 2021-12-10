@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src ="https://www.gstatic.com/firebasejs/8.8.1/firebase.js"></script>
+</head>
+<body>
+    <h4>Get customer's products</h4>
+    <input type="text" name="" id="myCustomerId" placeholder="Customer Id">
+    <button  id="myButton">Send</button>
+
+
+    <body>
+      
+        <script type="module">
+           document.getElementById("myButton").addEventListener ("click",myFunction);
+
+          
+                        const firebaseConfig = {
+              apiKey: "AIzaSyAseiUgEpzEvNxYlmK5q-zCdBVFHlxOW4g",
+              authDomain: "practica1asan.firebaseapp.com",
+              projectId: "practica1asan",
+              storageBucket: "practica1asan.appspot.com",
+              messagingSenderId: "394538950852",
+              appId: "1:394538950852:web:a198ca080522eafe822991"
+            };
+                 const app = firebase.initializeApp(firebaseConfig);
+
+                const db = firebase.firestore()
+                function myFunction(){
+
+                    var customerId = document.getElementById("myCustomerId").value
+
+
+                    db.collection("customers").doc(customerId).collection("orders").get().then((querySnapshot) => {
+                        querySnapshot.forEach((doc) => {
+                            // doc.data() is never undefined for query doc snapshots
+                            console.log(doc.id, " => ", doc.data());
+                        });
+                    });
+
+
+                
+            }
+
+
+
+          </script>
+      </body>
+</body>
+</html>

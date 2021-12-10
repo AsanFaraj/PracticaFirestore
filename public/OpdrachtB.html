@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src ="https://www.gstatic.com/firebasejs/8.8.1/firebase.js"></script>
+</head>
+<body>
+    <h4>Get customer</h4>
+    <input type="text" name="" id="myCustomerId" placeholder="customerId">
+    <button  id="myButton">Send</button>
+
+
+    <body>
+      
+        <script type="module">
+           document.getElementById("myButton").addEventListener ("click",myFunction);
+
+          
+                        const firebaseConfig = {
+              apiKey: "AIzaSyAseiUgEpzEvNxYlmK5q-zCdBVFHlxOW4g",
+              authDomain: "practica1asan.firebaseapp.com",
+              projectId: "practica1asan",
+              storageBucket: "practica1asan.appspot.com",
+              messagingSenderId: "394538950852",
+              appId: "1:394538950852:web:a198ca080522eafe822991"
+            };
+                 const app = firebase.initializeApp(firebaseConfig);
+
+                const db = firebase.firestore()
+                function myFunction(){
+
+                    var customerId = document.getElementById("myCustomerId").value
+
+
+                    var docRef = db.collection("customers").doc(customerId);
+
+                    docRef.get().then((doc) => {
+                        if (doc.exists) {
+                            console.log("Document data:", doc.data());
+                        } else {
+                            // doc.data() will be undefined in this case
+                            console.log("No such document!");
+                        }
+                    }).catch((error) => {
+                        console.log("Error getting document:", error);
+                    });
+                
+            }
+
+
+
+          </script>
+      </body>
+</body>
+</html>
