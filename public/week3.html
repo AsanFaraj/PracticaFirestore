@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src ="https://www.gstatic.com/firebasejs/8.8.1/firebase.js"></script>
+
+</head>
+<body>
+    
+    <input type="text" name="" id="comment" placeholder="comment">
+    <button id="btn">Comment</button>
+
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        document.getElementById('btn').addEventListener('click',myfunction);
+        function myfunction(){
+
+        
+        const firebaseConfig = {
+          apiKey: "AIzaSyAseiUgEpzEvNxYlmK5q-zCdBVFHlxOW4g",
+          authDomain: "practica1asan.firebaseapp.com",
+          projectId: "practica1asan",
+          storageBucket: "practica1asan.appspot.com",
+          messagingSenderId: "394538950852",
+          appId: "1:394538950852:web:a198ca080522eafe822991"
+        };
+      
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+
+            const db = firebase.firestore()
+                        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                // User logged in already or has just logged in.
+                console.log(user.uid);
+                var comment = document.getElementById('comment').value;
+           //add document to collection profiles with the user's email
+            db.collection("profiles").doc().set({
+                eigenaar: user.email,
+                uid: user.uid,
+                comment: comment
+            })
+            .then(function() {
+                console.log("Document successfully written!");
+            })
+            .catch(function(error) {
+                console.error("Error writing document: ", error);
+            });
+            } else {
+                // User not logged in or has just logged out.
+                console.log("not logged in");
+            }
+            });
+    
+
+    
+
+        }
+      </script>
+</body>
+</html>
